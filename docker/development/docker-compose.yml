@@ -1,0 +1,37 @@
+services:
+  ticket-service-api-server:
+    container_name: ticket-service-api-server-dev
+    build:
+      context: ../../
+      dockerfile: ./docker/development/Dockerfile.dev
+    restart: always
+    image: ticket-service-api-server-dev
+    env_file: ../../.env.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../src:/app/src
+      - /app/node_modules
+    depends_on:
+      - ticket-service-db
+    networks:
+      - ticket-service-net
+
+  ticket-service-db:
+    container_name: ticket-service-db-dev
+    image: postgres:18.1
+    restart: always
+    env_file: ../../.env.dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql
+    networks:
+      - ticket-service-net
+
+volumes:
+  pg_data:
+
+networks:
+  ticket-service-net:
+    driver: bridge
