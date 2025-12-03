@@ -1,3 +1,4 @@
+import logger from "../../utils/logger.js"
 import { pool } from "../db/index.js"
 
 interface GetTicketReturnType {
@@ -39,7 +40,7 @@ export const getTicket = async (): Promise<GetTicketReturnType> => {
     // abort transaction
     await client.query("ROLLBACK")
 
-    console.error("DB Error - GetNextTicket", error)
+    logger.error("DB Error - GetNextTicket", error)
   } finally {
     // close connection
     client.release()
@@ -91,7 +92,7 @@ export const getBatchTickets = async (
     // abort the transaction
     await client.query("ROLLBACK")
 
-    console.error("DB Error - GetNextTicketBatch", error)
+    logger.error("DB Error - GetNextTicketBatch", error)
   } finally {
     // close connection
     client.release()

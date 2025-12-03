@@ -1,6 +1,7 @@
 import { zValidator } from "@hono/zod-validator"
 import { Hono } from "hono"
-import { objectSerializer } from "../../../utils/object-serializer.js"
+import logger from "../../utils/logger.js"
+import { objectSerializer } from "../../utils/object-serializer.js"
 import { getBatchTickets, getTicket } from "../data-access/ticket.js"
 import {
   generateBatchTicketsInputJsonSchema,
@@ -13,6 +14,11 @@ export const ticketsRouter = new Hono()
     zValidator("json", generateTicketsInputJsonSchema),
     async (c) => {
       const { metadata, service_id } = c.req.valid("json")
+
+      logger.info("Generate Ticket", {
+        metadata,
+        service_id,
+      })
 
       const ticket = await getTicket()
 
@@ -44,6 +50,12 @@ export const ticketsRouter = new Hono()
     zValidator("json", generateBatchTicketsInputJsonSchema),
     async (c) => {
       const { count, metadata, service_id } = c.req.valid("json")
+
+      logger.info("Generate Batch Tickets", {
+        count,
+        metadata,
+        service_id,
+      })
 
       const batchTickets = await getBatchTickets(count)
 
