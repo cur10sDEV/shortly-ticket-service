@@ -1,35 +1,35 @@
-import "../../../otel/instrumentation.js" // the first to load
+import '../../../otel/instrumentation.js' // the first to load
 
-import { Hono } from "hono"
-import { requestId } from "hono/request-id"
-import { secureHeaders } from "hono/secure-headers"
+import { Hono } from 'hono'
+import { requestId } from 'hono/request-id'
+import { secureHeaders } from 'hono/secure-headers'
 
-import { requestLogger } from "./middlewares/request-logger.js"
-import { ticketsRouter } from "./tickets/routes/tickets.route.js"
+import { requestLogger } from './middlewares/request-logger.js'
+import { ticketsRouter } from './tickets/routes/tickets.route.js'
 
-export const app = new Hono().basePath("/api/v1")
+export const app = new Hono().basePath('/api/v1')
 
 // middlewares
 app.use(secureHeaders())
 app.use(requestId())
 app.use(requestLogger())
 
-app.get("/", (c) => {
+app.get('/', (c) => {
   c.status(200)
   return c.json({
-    key: "value",
-    request_id: c.get("requestId"),
+    key: 'value',
+    request_id: c.get('requestId'),
   })
 })
 
 // routes
-app.route("/tickets", ticketsRouter)
+app.route('/tickets', ticketsRouter)
 
-app.get("/health-check", (c) => {
+app.get('/health-check', (c) => {
   c.status(200)
   return c.json({
     status: 200,
-    message: "The service is healthy 🚀",
-    request_id: c.get("requestId"),
+    message: 'The service is healthy 🚀',
+    request_id: c.get('requestId'),
   })
 })

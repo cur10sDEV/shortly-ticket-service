@@ -1,21 +1,21 @@
 // logger.ts
-import winston from "winston"
-import { parsedEnv } from "./env.js"
+import winston from 'winston'
+import { parsedEnv } from './env.js'
 
 // Create Winston logger with OpenTelemetry support
 // Winston instrumentation is handled automatically by the SDK in instrumentation.js
 const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || "info",
+  level: process.env.LOG_LEVEL || 'info',
   format: winston.format.combine(
     winston.format.timestamp({
-      format: "YYYY-MM-DD HH:mm:ss",
+      format: 'YYYY-MM-DD HH:mm:ss',
     }),
     winston.format.errors({ stack: true }),
     winston.format.splat(),
-    winston.format.json()
+    winston.format.json(),
   ),
   defaultMeta: {
-    service: parsedEnv.OTEL_SERVICE_NAME || "my-express",
+    service: parsedEnv.OTEL_SERVICE_NAME || 'my-express',
   },
   transports: [
     // Console transport with colorized output for development
@@ -28,7 +28,7 @@ const logger = winston.createLogger({
             msg += ` ${JSON.stringify(metadata)}`
           }
           return msg
-        })
+        }),
       ),
     }),
   ],

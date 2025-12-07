@@ -1,0 +1,3 @@
+- [ ] Update Docker production files
+- [ ] Eslint + Prettier
+- [ ] lint-staged and husky

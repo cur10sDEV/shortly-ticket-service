@@ -1,4 +1,4 @@
-import z from "zod"
+import z from 'zod'
 
 const envSchema = z.object({
   DB_HOST: z.string().min(1),
@@ -18,6 +18,7 @@ export let parsedEnv: ENV
 try {
   parsedEnv = envSchema.parse(process.env)
 } catch (error) {
-  console.error("Invalid Environment Variables!!!")
+  /* eslint-disable no-console */
+  console.error('Invalid Environment Variables!!!', error)
   process.exit(1)
 }

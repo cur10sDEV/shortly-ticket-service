@@ -1,5 +1,6 @@
-import { Client, Pool, types, type ConnectionConfig } from "pg"
-import { parsedEnv } from "../../utils/env.js"
+import { Client, Pool, types, type ConnectionConfig } from 'pg'
+import { parsedEnv } from '../../utils/env.js'
+import logger from '../../utils/logger.js'
 
 // bigint custom parser
 types.setTypeParser(20, (input) => BigInt(input))
@@ -18,6 +19,6 @@ export const pool = new Pool({ ...config, max: 25, min: 5 })
 try {
   await db.connect()
 } catch (error) {
-  console.error("Error connecting Database!!!")
+  logger.error('Error connecting Database!!!', error)
   process.exit(1)
 }

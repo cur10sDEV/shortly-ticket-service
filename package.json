@@ -4,7 +4,15 @@
   "scripts": {
     "dev": "tsx --env-file=./.env.dev --watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test:unit": "vitest --run",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui --api 1337",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format:check": "prettier --check 'src/**/*.{ts,js,json,css,md}'",
+    "format": "prettier --write 'src/**/*.{ts,js,json,css,md}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.6",
@@ -25,9 +33,29 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "@eslint/js": "^9.39.1",
     "@types/node": "^20.11.17",
     "@types/pg": "^8.15.6",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "tsx": "^4.7.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.48.1"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "otel/**/*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

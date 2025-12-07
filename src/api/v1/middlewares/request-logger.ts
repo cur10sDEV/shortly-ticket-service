@@ -1,6 +1,6 @@
-import { getConnInfo } from "@hono/node-server/conninfo"
-import { createMiddleware } from "hono/factory"
-import logger from "../utils/logger.js"
+import { getConnInfo } from '@hono/node-server/conninfo'
+import { createMiddleware } from 'hono/factory'
+import logger from '../utils/logger.js'
 
 export const requestLogger = () =>
   createMiddleware(async (c, next) => {
@@ -10,7 +10,7 @@ export const requestLogger = () =>
       method: c.req.method,
       path: c.req.path,
       ip: conninfo.remote.address,
-      userAgent: c.req.raw.headers.get("User-Agent"),
+      userAgent: c.req.raw.headers.get('User-Agent'),
       resStatus: c.res.status,
     })
   })

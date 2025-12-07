@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getTicket } from "../src/api/v1/tickets/data-access/ticket.js"
 
 // Track results for analysis
