@@ -1,7 +1,7 @@
 # ------------------- Dependencies stage ------------------- #
 FROM node:22-alpine AS deps
 
-RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+RUN apk update && apk -i add dumb-init
 
 WORKDIR /app
 

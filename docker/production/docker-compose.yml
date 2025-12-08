@@ -1,0 +1,27 @@
+services:
+  ticket-service-api-server:
+    container_name: ticket-service-api-server-prod
+    build:
+      context: ../../
+      dockerfile: ./docker/production/Dockerfile
+    restart: always
+    image: ticket-service-api-server-prod
+    env_file: ../../.env
+    ports:
+      - "${APP_PORT:-3000}:${APP_PORT:-3000}"
+    networks:
+      - ticket-service-net
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "ping",
+          "http://localhost:${APP_PORT:-3000}/api/v1/health-check",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  ticket-service-net:
+    driver: bridge
