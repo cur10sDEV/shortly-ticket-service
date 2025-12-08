@@ -9,6 +9,7 @@ const envSchema = z.object({
   APP_PORT: z.coerce.number().min(1000).max(64000),
   OTEL_SERVICE_NAME: z.string().min(1),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.url().min(1),
+  LOG_LEVEL: z.enum(['info', 'debug', 'error', 'warn', 'fatal']),
 })
 
 type ENV = z.infer<typeof envSchema>

@@ -14,14 +14,6 @@ app.use(secureHeaders())
 app.use(requestId())
 app.use(requestLogger())
 
-app.get('/', (c) => {
-  c.status(200)
-  return c.json({
-    key: 'value',
-    request_id: c.get('requestId'),
-  })
-})
-
 // routes
 app.route('/tickets', ticketsRouter)
 

@@ -5,7 +5,7 @@ import { parsedEnv } from './env.js'
 // Create Winston logger with OpenTelemetry support
 // Winston instrumentation is handled automatically by the SDK in instrumentation.js
 const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || 'info',
+  level: parsedEnv.LOG_LEVEL || 'info',
   format: winston.format.combine(
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
