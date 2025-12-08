@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS "ranges";
+DROP INDEX IF EXISTS "index_status";
+DROP TYPE IF EXISTS "range_status";
+
 -- DATABASE SETUP ----------------------------------------------
 
 -- BEGIN TRANSACTION -------------------------------------------
