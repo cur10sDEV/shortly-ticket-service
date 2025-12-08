@@ -6,11 +6,9 @@ import logger from '../../utils/logger.js'
 types.setTypeParser(20, (input) => BigInt(input))
 
 const config: ConnectionConfig = {
-  host: parsedEnv.DB_HOST,
-  user: parsedEnv.DB_USER,
-  password: parsedEnv.DB_PASSWORD,
-  database: parsedEnv.DB_NAME,
+  connectionString: parsedEnv.DB_CONNECTION_STRING,
   query_timeout: 3000,
+  application_name: parsedEnv.OTEL_SERVICE_NAME,
 }
 
 export const db = new Client(config)

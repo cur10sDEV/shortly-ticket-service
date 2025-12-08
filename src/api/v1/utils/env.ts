@@ -1,14 +1,10 @@
 import z from 'zod'
 
 const envSchema = z.object({
-  DB_HOST: z.string().min(1),
-  DB_PORT: z.coerce.number().min(1000).max(64000),
-  DB_USER: z.string().min(1).max(64),
-  DB_PASSWORD: z.string().min(1).max(128),
-  DB_NAME: z.string().min(1).max(128),
+  DB_CONNECTION_STRING: z.string().min(1),
   APP_PORT: z.coerce.number().min(1000).max(64000),
   OTEL_SERVICE_NAME: z.string().min(1),
-  OTEL_EXPORTER_OTLP_ENDPOINT: z.url().min(1),
+  OTEL_EXPORTER_OTLP_ENDPOINT: z.string().min(1),
   LOG_LEVEL: z.enum(['info', 'debug', 'error', 'warn', 'fatal']),
 })
 
