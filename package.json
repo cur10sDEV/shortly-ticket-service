@@ -2,6 +2,7 @@
   "name": "ticket-server",
   "type": "module",
   "scripts": {
+    "dev:docker": "tsx --watch src/index.ts",
     "dev": "tsx --env-file=./.env.dev --watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
