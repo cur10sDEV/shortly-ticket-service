@@ -6,6 +6,7 @@ const envSchema = z.object({
   OTEL_SERVICE_NAME: z.string().min(1),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.string().min(1),
   LOG_LEVEL: z.enum(['info', 'debug', 'error', 'warn', 'fatal']),
+  SHORT_URL_API_SERVICE_BASE_URL: z.string().min(1),
 })
 
 type ENV = z.infer<typeof envSchema>
