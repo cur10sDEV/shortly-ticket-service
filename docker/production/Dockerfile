@@ -43,7 +43,5 @@ COPY --from=builder /app/dist ./dist
 
 USER app
 
-EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:docker"]
 # ------------------- Runtime stage ------------------- #
