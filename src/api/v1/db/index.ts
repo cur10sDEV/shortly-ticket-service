@@ -1,6 +1,6 @@
 import { Client, Pool, types, type ConnectionConfig } from 'pg'
-import { parsedEnv } from '../../utils/env.js'
-import logger from '../../utils/logger.js'
+import { parsedEnv } from '../utils/env.js'
+import logger from '../utils/logger.js'
 
 // bigint custom parser
 types.setTypeParser(20, (input) => BigInt(input))

@@ -1,5 +1,5 @@
+import { pool } from '../../db/index.js'
 import logger from '../../utils/logger.js'
-import { pool } from '../db/index.js'
 
 interface GetTicketReturnType {
   ticket: bigint | null
