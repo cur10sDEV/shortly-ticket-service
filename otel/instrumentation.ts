@@ -1,10 +1,9 @@
-import { logs } from '@opentelemetry/api-logs'
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node'
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
 import { WinstonInstrumentation } from '@opentelemetry/instrumentation-winston'
-import { Resource } from '@opentelemetry/resources'
-import { BatchLogRecordProcessor, LoggerProvider } from '@opentelemetry/sdk-logs'
+import { resourceFromAttributes } from '@opentelemetry/resources'
+import { BatchLogRecordProcessor } from '@opentelemetry/sdk-logs'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions'
 import { parsedEnv } from '../src/api/v1/utils/env.js'
@@ -20,22 +19,14 @@ const logExporter = new OTLPLogExporter({
 })
 
 // Create resource with service name
-const resource = new Resource({
-  [ATTR_SERVICE_NAME]: parsedEnv.OTEL_SERVICE_NAME || 'ticket-service',
+const resource = resourceFromAttributes({
+  [ATTR_SERVICE_NAME]: parsedEnv.OTEL_SERVICE_NAME || 'short-url-ticket-service',
 })
-
-// Initialize Logger Provider
-const loggerProvider = new LoggerProvider({
-  resource,
-})
-loggerProvider.addLogRecordProcessor(new BatchLogRecordProcessor(logExporter))
-
-// Register the logger provider globally
-logs.setGlobalLoggerProvider(loggerProvider)
 
 // Initialize Node SDK
 const sdk = new NodeSDK({
   resource,
+  logRecordProcessors: [new BatchLogRecordProcessor(logExporter)],
   traceExporter,
   instrumentations: [
     getNodeAutoInstrumentations({
@@ -47,7 +38,7 @@ const sdk = new NodeSDK({
     // Winston instrumentation for log correlation with traces
     new WinstonInstrumentation({
       logHook: (span, record) => {
-        record['resource.service.name'] = parsedEnv.OTEL_SERVICE_NAME || 'ticket-service'
+        record['resource.service.name'] = parsedEnv.OTEL_SERVICE_NAME || 'short-url-ticket-service'
       },
     }),
   ],
@@ -69,5 +60,3 @@ process.on('SIGTERM', () => {
     .catch((error) => logger.error('Error shutting down OpenTelemetry:', error))
     .finally(() => process.exit(0))
 })
-
-export { loggerProvider }
