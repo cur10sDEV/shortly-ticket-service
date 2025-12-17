@@ -1,5 +1,5 @@
 # ------------------- Dependencies stage ------------------- #
-FROM node:22-alpine AS deps
+FROM node:lts-alpine AS deps
 
 RUN apk update && apk -i add dumb-init
 
@@ -11,7 +11,7 @@ RUN npm ci --silent
 # ------------------- Dependencies stage ------------------- #
 
 # ------------------- Builder stage ------------------- #
-FROM node:22-alpine AS builder
+FROM node:lts-alpine AS builder
 
 WORKDIR /app
 
@@ -25,7 +25,7 @@ RUN npm run build
 # ------------------- Builder stage ------------------- #
 
 # ------------------- Runtime stage ------------------- #
-FROM node:22-alpine AS runner
+FROM node:lts-alpine AS runner
 
 WORKDIR /app
 
